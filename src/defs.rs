@@ -1,6 +1,6 @@
 use crate::triples::Arch;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Version {
     pub major: u32,
     pub minor: u32,
@@ -27,7 +27,7 @@ impl PartialOrd for Version {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Package {
     pub name: String,
     pub version: Version,
