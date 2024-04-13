@@ -1,6 +1,6 @@
 use crate::triples::Arch;
 
-#[derive(Debug, PartialEq, Clone, Eq)]
+#[derive(Debug, PartialEq, Clone, Eq, serde::Serialize, serde::Deserialize)]
 pub struct Version {
     pub major: u32,
     pub minor: u32,

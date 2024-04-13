@@ -114,7 +114,7 @@ impl Extract for Package {
         // now remove the /tmp/apt-alt directory
         std::fs::remove_dir_all("/tmp/apt-alt").unwrap();
 
-        Ok(LogEntry::new(self.name, files))
+        Ok(LogEntry::new(self.name, files, self.version))
         
        
     }

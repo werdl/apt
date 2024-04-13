@@ -2,17 +2,21 @@ use serde::{Serialize, Deserialize};
 
 use std::io::{self, Read, Write};
 
+use crate::defs::Version;
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LogEntry {
     modified_files: Vec<String>,
     package: String,
+    package_version: Version,
 }
 
 impl LogEntry {
-    pub fn new(package: String, modified_files: Vec<String>) -> LogEntry {
+    pub fn new(package: String, modified_files: Vec<String>, package_version: Version) -> LogEntry {
         LogEntry {
-            modified_files: modified_files,
-            package: package,
+            modified_files,
+            package,
+            package_version
         }
     }
 }
