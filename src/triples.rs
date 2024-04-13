@@ -6,7 +6,7 @@ pub enum Os {
     Linux // currently only Linux is supported
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Arch { // everything supported by dpkg (we rip their binaries from .deb files)
     Amd64,
     Arm64,

@@ -11,6 +11,7 @@ use clap::{
     Parser,
     Subcommand
 };
+use logging::Log;
 
 #[derive(Parser)]
 struct Opts {
@@ -37,18 +38,32 @@ struct App {
     subcmd: SubCmd,
 }
 
+fn install(package: String, arch: triples::Arch) {
+    let mut ftp = ftp::DebianFtp::new();
+    let packages = ftp.list_pkgs(&package).unwrap();
+
+    let packages =  packages.filter_by_arch(arch, &package).to_pkg();
+
+    // select the package with the highest version
+    let package = packages.iter().max().unwrap().to_owned();
+
+    // now, extract the package
+    let log = package.extract().unwrap();
+
+    // write the log
+    log.write().unwrap();
+}
+
 fn main() {
-    let pkgs = ftp::DebianFtp::new().list_pkgs("curl").unwrap().filter_by_arch(triples::Arch::Amd64, "curl").to_pkg();
-
-    for pkg in pkgs {
-        println!("{:#?}\n, {:?}", pkg.clone(), pkg.extract());
-    }
-
     let app = App::parse();
 
     match app.subcmd {
         SubCmd::Install(opts) => {
             println!("Installing {}", opts.package);
+            install(
+                opts.package,
+                triples::Arch::Amd64
+            )
         },
         SubCmd::Remove(opts) => {
             println!("Removing {}", opts.package);

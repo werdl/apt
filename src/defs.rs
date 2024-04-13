@@ -1,6 +1,6 @@
 use crate::triples::Arch;
 
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Debug, PartialEq, Clone, Eq)]
 pub struct Version {
     pub major: u32,
     pub minor: u32,
@@ -27,13 +27,25 @@ impl PartialOrd for Version {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Package {
     pub name: String,
     pub version: Version,
     pub depends: Vec<Package>,
     pub arch: Arch,
     pub deb_link: String,
+}
+
+impl PartialOrd for Package {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        self.version.partial_cmp(&other.version)
+    }
+}
+
+impl Ord for Package {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.version.partial_cmp(&other.version).unwrap()
+    }
 }
 
 pub trait Filter {
