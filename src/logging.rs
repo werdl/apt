@@ -6,10 +6,11 @@ use crate::defs::Version;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct LogEntry {
-    modified_files: Vec<String>,
-    package: String,
-    package_version: Version,
+    pub modified_files: Vec<String>,
+    pub package: String,
+    pub package_version: Version,
 }
+
 
 impl LogEntry {
     pub fn new(package: String, modified_files: Vec<String>, package_version: Version) -> LogEntry {
