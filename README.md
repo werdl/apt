@@ -6,6 +6,6 @@
 - `apt-alt` leverages of these files to allow installation on all Linux distros with basic `glibc` support, by tearing apart the .deb file
 - this way `dpkg` is not needed
 ## features
-[x] - install
-[x] - remove
-[-] - upgrade
+- [x] install
+- [x] remove
+- [ ] upgrade
